@@ -1,4 +1,5 @@
-import { RECEIVE_TODOS, RECEIVE_TODO } from '../actions/todo_actions'
+import { RECEIVE_TODOS, RECEIVE_TODO } from '../actions/todo_actions';
+
 
 const todosReducer = (state = {}, action) => {
   switch(action.type) {
