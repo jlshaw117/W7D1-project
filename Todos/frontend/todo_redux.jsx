@@ -4,6 +4,9 @@ import ReactDOM from 'react-dom';
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('content');
   
-  return ReactDOM.render(<h1>Todos App</h1>, root);
+  ReactDOM.render(<Root />, root);
 });
 
+function Root() {
+  return <h1>Todos App</h1>;
+}
