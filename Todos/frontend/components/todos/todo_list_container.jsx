@@ -5,7 +5,8 @@ import { receiveTodo } from '../../actions/todo_actions';
 
 
 const mapStateToProps = state => ({
-  todos: allTodos(state)
+  todos: allTodos(state),
+  state
 });
 
 const mapDispatchToProps = dispatch => ({
