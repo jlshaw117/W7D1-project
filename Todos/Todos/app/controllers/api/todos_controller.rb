@@ -18,8 +18,21 @@ class TodosController < ApplicationController
   end
 
   def update
+    @todo = Todo.find(params[:id])
+    if @todo.update(todo_params)
+      render json: @todo
+    else
+      render json: @todo.errors.full_messages, status: 422
+    end
   end
 
   def destroy
+    @todo = Todo.find(params[:id])
+    @todo.destroy!
+    redirect_to api_todos_url
+  end
+
+  def todo_params
+    params.require(:todo).permit(:title,:body);
   end
 end
