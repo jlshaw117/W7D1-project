@@ -8,4 +8,13 @@ export const fetchTodos = () => {
   );
 };
 
+export const createTodo = (todo) => {
+  return (
+    $.ajax({
+      method: "POST",
+      url: "/api/todos",
+      data: todo
+    })
+  );
+};
 // export default fetchTodos;

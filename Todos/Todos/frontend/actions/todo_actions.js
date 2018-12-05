@@ -18,5 +18,11 @@ export const fetchTodos = () => dispatch => {
       dispatch(receiveTodos(res));
     });
 };
+export const createTodo = (todo) => dispatch => {
+  APIUtil.createTodo()
+    .then(todo => {
+      dispatch(receiveTodo(todo));
+    }, (res) => console.log(res));
+};
 
 window.fetchTodos = fetchTodos;

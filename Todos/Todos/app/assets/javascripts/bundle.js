@@ -90,7 +90,7 @@
 /*!******************************************!*\
   !*** ./frontend/actions/todo_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_TODOS, RECEIVE_TODO, receiveTodos, receiveTodo, fetchTodos */
+/*! exports provided: RECEIVE_TODOS, RECEIVE_TODO, receiveTodos, receiveTodo, fetchTodos, createTodo */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -100,6 +100,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveTodos", function() { return receiveTodos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveTodo", function() { return receiveTodo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchTodos", function() { return fetchTodos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTodo", function() { return createTodo; });
 /* harmony import */ var _util_todo_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/todo_api_util */ "./frontend/util/todo_api_util.js");
 
 var RECEIVE_TODOS = 'RECEIVE_TODOS';
@@ -120,6 +121,15 @@ var fetchTodos = function fetchTodos() {
   return function (dispatch) {
     _util_todo_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchTodos"]().then(function (res) {
       dispatch(receiveTodos(res));
+    });
+  };
+};
+var createTodo = function createTodo(todo) {
+  return function (dispatch) {
+    _util_todo_api_util__WEBPACK_IMPORTED_MODULE_0__["createTodo"]().then(function (todo) {
+      dispatch(receiveTodo(todo));
+    }, function (res) {
+      return console.log(res);
     });
   };
 };
@@ -213,7 +223,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
-
+ // import { createTodo } from '../../actions/todo_actions';
 
 var TodoForm =
 /*#__PURE__*/
@@ -242,7 +252,8 @@ function (_React$Component) {
       var todo = Object.assign({}, this.state, {
         id: Object(_util_todo_util__WEBPACK_IMPORTED_MODULE_1__["default"])()
       });
-      this.props.receiveTodo(todo);
+      this.props.createTodo(todo); // createTodo(todo);
+
       this.setState({
         title: "",
         body: ""
@@ -347,7 +358,8 @@ function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           todos = _this$props.todos,
-          receiveTodo = _this$props.receiveTodo;
+          receiveTodo = _this$props.receiveTodo,
+          createTodo = _this$props.createTodo;
       var todoItems = todos.map(function (el) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_list_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
           todo: el
@@ -355,7 +367,8 @@ function (_React$Component) {
       }); // debugger
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, todoItems), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_todo_form__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        receiveTodo: receiveTodo
+        receiveTodo: receiveTodo,
+        createTodo: createTodo
       }));
     }
   }]);
@@ -399,6 +412,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchTodos: function fetchTodos() {
       return dispatch(Object(_actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["fetchTodos"])());
+    },
+    createTodo: function createTodo(todo) {
+      return dispatch(Object(_actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["createTodo"])(todo));
     }
   };
 };
@@ -653,16 +669,24 @@ window.allTodos = _reducers_selectors__WEBPACK_IMPORTED_MODULE_5__["default"]; /
 /*!****************************************!*\
   !*** ./frontend/util/todo_api_util.js ***!
   \****************************************/
-/*! exports provided: fetchTodos */
+/*! exports provided: fetchTodos, createTodo */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchTodos", function() { return fetchTodos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTodo", function() { return createTodo; });
 var fetchTodos = function fetchTodos() {
   return $.ajax({
     method: "GET",
     url: "api/todos"
+  });
+};
+var createTodo = function createTodo(todo) {
+  return $.ajax({
+    method: "POST",
+    url: "/api/todos",
+    data: todo
   });
 }; // export default fetchTodos;
 
