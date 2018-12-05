@@ -338,6 +338,11 @@ function (_React$Component) {
   }
 
   _createClass(TodoList, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchTodos();
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -378,7 +383,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+ // import fetchTodos from '../../action'
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
@@ -391,6 +396,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     receiveTodo: function receiveTodo(todo) {
       return dispatch(Object(_actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["receiveTodo"])(todo));
+    },
+    fetchTodos: function fetchTodos() {
+      return dispatch(Object(_actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["fetchTodos"])());
     }
   };
 };
