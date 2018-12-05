@@ -1,5 +1,5 @@
 
-const fetchTodos = () => {
+export const fetchTodos = () => {
   return (
     $.ajax({
       method: "GET",
@@ -8,4 +8,4 @@ const fetchTodos = () => {
   );
 };
 
-export default fetchTodos;
+// export default fetchTodos;

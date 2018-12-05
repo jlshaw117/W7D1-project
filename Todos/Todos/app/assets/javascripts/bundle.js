@@ -90,7 +90,7 @@
 /*!******************************************!*\
   !*** ./frontend/actions/todo_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_TODOS, RECEIVE_TODO, receiveTodos, receiveTodo */
+/*! exports provided: RECEIVE_TODOS, RECEIVE_TODO, receiveTodos, receiveTodo, fetchTodos */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -99,6 +99,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_TODO", function() { return RECEIVE_TODO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveTodos", function() { return receiveTodos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveTodo", function() { return receiveTodo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchTodos", function() { return fetchTodos; });
+/* harmony import */ var _util_todo_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/todo_api_util */ "./frontend/util/todo_api_util.js");
+
 var RECEIVE_TODOS = 'RECEIVE_TODOS';
 var RECEIVE_TODO = 'RECEIVE_TODO';
 var receiveTodos = function receiveTodos(todos) {
@@ -113,6 +116,14 @@ var receiveTodo = function receiveTodo(todo) {
     todo: todo
   };
 };
+var fetchTodos = function fetchTodos() {
+  return function (dispatch) {
+    _util_todo_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchTodos"]().then(function (res) {
+      dispatch(receiveTodos(res));
+    });
+  };
+};
+window.fetchTodos = fetchTodos;
 
 /***/ }),
 
@@ -627,6 +638,25 @@ window.receiveTodos = _actions_todo_actions__WEBPACK_IMPORTED_MODULE_3__["receiv
 window.allTodos = _reducers_selectors__WEBPACK_IMPORTED_MODULE_5__["default"]; // function Root() {
 //   return <h1>Todos App</h1>;
 // }
+
+/***/ }),
+
+/***/ "./frontend/util/todo_api_util.js":
+/*!****************************************!*\
+  !*** ./frontend/util/todo_api_util.js ***!
+  \****************************************/
+/*! exports provided: fetchTodos */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchTodos", function() { return fetchTodos; });
+var fetchTodos = function fetchTodos() {
+  return $.ajax({
+    method: "GET",
+    url: "api/todos"
+  });
+}; // export default fetchTodos;
 
 /***/ }),
 
